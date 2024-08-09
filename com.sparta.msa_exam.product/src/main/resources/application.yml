@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: product-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/msa_exam
+    username: root
+    password: 12345678
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # 운영 단계에서 꼭 삭제할 것
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+server:
+  port: 19093
+
+eureka:
+  client:
+    service-url:
+       defaultZone: http://localhost:19090/eureka/
+
