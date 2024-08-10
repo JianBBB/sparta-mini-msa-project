@@ -10,6 +10,7 @@ import com.sparta.msa_exam.order.feign.ProductClient;
 import com.sparta.msa_exam.order.repository.OrderDetailRepository;
 import com.sparta.msa_exam.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class OrderService {
     private final OrderDetailRepository orderDetailRepository;
     private final ProductClient productClient;
 
+
     public void saveOrder(OrderSaveRequestDto request) {
         orderRepository.save(Order.builder()
                 .name(request.getName())
@@ -32,7 +34,8 @@ public class OrderService {
     }
 
     @Transactional
-    public void putOrderDetail(Long orderId, ProductRequestDto request) {
+    @CachePut(cacheNames = "orderCache", key="#orderId")
+    public OrderResponseDto putOrderDetail(Long orderId, ProductRequestDto request) {
         Long productId = request.getProductId();
         if(!productClient.getProducts().stream().anyMatch(product -> product.getProductId().equals(productId))){
             throw new RuntimeException("제공해주신 productId - "+ productId + "는 존재하지 않는 상품입니다.");
@@ -49,6 +52,12 @@ public class OrderService {
         );
 
         order.addProductIds(orderDetail);
+
+        return  new OrderResponseDto(order.getOrderId(),
+                order.getProductIds().stream()
+                        .map(od -> od.getProductId().intValue())
+                        .toList()
+        );
     }
 
     @Cacheable(cacheNames="orderCache", key="#orderId")
