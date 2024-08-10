@@ -9,11 +9,11 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class OrderResponseDto implements Serializable {
-    private Long orderId;
-    private List<Integer> productIds;
+    private Long order_id;
+    private List<Integer> product_ids;
 
-    public OrderResponseDto(Long orderId, List<Integer> productIds ){
-        this.orderId=orderId;
-        this.productIds = productIds;
+    public OrderResponseDto(Long order_id, List<Integer> product_ids ){
+        this.order_id=order_id;
+        this.product_ids = product_ids;
     }
 }

@@ -20,15 +20,15 @@ public class OrderController {
         orderService.saveOrder(request);
     }
 
-    @PutMapping("/order/{orderId}")
-    public void putOrderDetail(@PathVariable Long orderId, @RequestBody ProductRequestDto request){
-        orderService.putOrderDetail(orderId,request);
+    @PutMapping("/order/{order_id}")
+    public void putOrderDetail(@PathVariable Long order_id, @RequestBody ProductRequestDto request){
+        orderService.putOrderDetail(order_id,request);
 
     }
 
-    @GetMapping("/order/{orderId}")
-    public OrderResponseDto getOrder(@PathVariable Long orderId){
-        return orderService.getOrder(orderId);
+    @GetMapping("/order/{order_id}")
+    public OrderResponseDto getOrder(@PathVariable Long order_id){
+        return orderService.getOrder(order_id);
     }
 
 }

@@ -5,15 +5,15 @@ import lombok.Getter;
 
 @Getter
 public class ProductResponseDto {
-    private Long productId;
+    private Long product_id;
     private String name;
-    private Integer supplyPrice;
+    private Integer supply_price;
 
     protected ProductResponseDto() {}
 
     public ProductResponseDto(Product product) {
-        this.productId = product.getProductId();
+        this.product_id = product.getProduct_id();
         this.name = product.getName();
-        this.supplyPrice = product.getSupplyPrice();
+        this.supply_price = product.getSupply_price();
     }
 }

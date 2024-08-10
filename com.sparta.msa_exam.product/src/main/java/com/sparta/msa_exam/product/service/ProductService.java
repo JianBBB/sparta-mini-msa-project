@@ -19,7 +19,7 @@ public class ProductService {
     public void saveProduct(ProductSaveRequestDto req) {
         Product product = Product.builder()
                 .name(req.getName())
-                .supplyPrice(req.getSupplyPrice())
+                .supply_price(req.getSupply_price())
                 .build();
 
         productRepository.save(product);

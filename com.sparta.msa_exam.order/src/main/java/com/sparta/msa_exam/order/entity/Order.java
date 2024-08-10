@@ -21,16 +21,16 @@ public class Order {
     private String name;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderDetail> productIds =  new ArrayList<>();
+    private List<OrderDetail> product_ids =  new ArrayList<>();
 
 
-    public void addProductIds(OrderDetail orderDetail){
-        this.productIds.add(orderDetail);
+    public void addproduct_ids(OrderDetail orderDetail){
+        this.product_ids.add(orderDetail);
     }
 
     @Builder
     public Order(String name){
         this.name = name;
-        this.productIds = new ArrayList<>();
+        this.product_ids = new ArrayList<>();
     }
 }

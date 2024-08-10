@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductSaveRequestDto {
     private String name;
-    private Integer supplyPrice;
+    private Integer supply_price;
 
-    public ProductSaveRequestDto(String name, Integer supplyPrice) {
+    public ProductSaveRequestDto(String name, Integer supply_price) {
         this.name=name;
-        this.supplyPrice=supplyPrice;
+        this.supply_price=supply_price;
     }
 
 }

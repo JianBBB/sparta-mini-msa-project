@@ -11,17 +11,17 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="product_id")
-    private Long productId;
+    private Long product_id;
 
     @Column(nullable = false)
     private String name;
     @Column(name="supply_price", nullable = false)
-    private Integer supplyPrice;
+    private Integer supply_price;
 
     @Builder
-    public Product(String name, Integer supplyPrice) {
+    public Product(String name, Integer supply_price) {
         this.name=name;
-        this.supplyPrice =supplyPrice;
+        this.supply_price =supply_price;
     }
 
 }

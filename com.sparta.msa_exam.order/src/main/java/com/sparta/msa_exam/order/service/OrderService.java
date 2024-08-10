@@ -15,9 +15,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -36,9 +33,9 @@ public class OrderService {
     @Transactional
     @CachePut(cacheNames = "orderCache", key="#orderId")
     public OrderResponseDto putOrderDetail(Long orderId, ProductRequestDto request) {
-        Long productId = request.getProductId();
-        if(!productClient.getProducts().stream().anyMatch(product -> product.getProductId().equals(productId))){
-            throw new RuntimeException("제공해주신 productId - "+ productId + "는 존재하지 않는 상품입니다.");
+        Long product_id = request.getProduct_id();
+        if(!productClient.getProducts().stream().anyMatch(product -> product.getProduct_id().equals(product_id))){
+            throw new RuntimeException("제공해주신 product_id - "+ product_id + "는 존재하지 않는 상품입니다.");
         }
 
         Order order = orderRepository.findById(orderId).orElseThrow(
@@ -46,16 +43,16 @@ public class OrderService {
         );
 
         OrderDetail orderDetail = orderDetailRepository.save(OrderDetail.builder()
-                .productId(productId)
+                .product_id(product_id)
                 .order(order)
                 .build()
         );
 
-        order.addProductIds(orderDetail);
+        order.addproduct_ids(orderDetail);
 
         return  new OrderResponseDto(order.getOrderId(),
-                order.getProductIds().stream()
-                        .map(od -> od.getProductId().intValue())
+                order.getProduct_ids().stream()
+                        .map(od -> od.getProduct_id().intValue())
                         .toList()
         );
     }
@@ -67,8 +64,8 @@ public class OrderService {
         );
 
        return  new OrderResponseDto(order.getOrderId(),
-                order.getProductIds().stream()
-                        .map(orderDetail -> orderDetail.getProductId().intValue())
+                order.getProduct_ids().stream()
+                        .map(orderDetail -> orderDetail.getProduct_id().intValue())
                         .toList()
         );
     }

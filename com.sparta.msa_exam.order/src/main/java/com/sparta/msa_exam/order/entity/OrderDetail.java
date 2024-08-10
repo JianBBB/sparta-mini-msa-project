@@ -15,15 +15,15 @@ public class OrderDetail {
     private Long id;
 
     @Column(name = "product_id")
-    private Long productId;
+    private Long product_id;
 
     @ManyToOne
     @JoinColumn(name="order_id", nullable=false)
     private Order order;
 
     @Builder
-    public OrderDetail(Long productId, Order order){
-        this.productId=productId;
+    public OrderDetail(Long product_id, Order order){
+        this.product_id=product_id;
         this.order = order;
     }
 }
