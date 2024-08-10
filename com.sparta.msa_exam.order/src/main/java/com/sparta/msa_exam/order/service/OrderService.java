@@ -10,6 +10,7 @@ import com.sparta.msa_exam.order.feign.ProductClient;
 import com.sparta.msa_exam.order.repository.OrderDetailRepository;
 import com.sparta.msa_exam.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +51,7 @@ public class OrderService {
         order.addProductIds(orderDetail);
     }
 
+    @Cacheable(cacheNames="orderCache", key="#orderId")
     public OrderResponseDto getOrder(Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(
                 ()->new RuntimeException("제공해주신 orderId - "+ orderId + "는 존재하지 않는 주문입니다.")
